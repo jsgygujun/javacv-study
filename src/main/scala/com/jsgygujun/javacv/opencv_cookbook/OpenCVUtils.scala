@@ -1,5 +1,6 @@
 package com.jsgygujun.javacv.opencv_cookbook
 
+import java.awt._
 import java.io.File
 
 import javax.swing.WindowConstants
@@ -10,16 +11,13 @@ import org.bytedeco.opencv.global.opencv_imgcodecs._
 
 /**
  * 简化OpenCV API使用的辅助方法
- *
- * @author gujun@qiyi.com
- * @since 2020/7/2 3:12 下午
  */
 object OpenCVUtils {
 
   /**
    * 加载图像并在CanvasFrame中显示。如果无法加载图像，则应用程序将退出并显示代码-1
-   * @param file
-   * @param flags
+   * @param file 文件路径
+   * @param flags 指明加载图片的颜色类型， >0: 3通道彩色图片; =0: 灰度图片; <0: 按照图片本身
    * @return
    */
   def loadOrExit(file: File, flags: Int=IMREAD_COLOR): Mat = {
@@ -34,8 +32,8 @@ object OpenCVUtils {
 
   /**
    * 加载图像并在CanvasFrame中显示。如果无法加载图像，则应用程序将退出并显示代码-1
-   * @param file
-   * @param flags
+   * @param file 文件路径
+   * @param flags 指明加载图片的颜色类型， >0: 3通道彩色图片; =0: 灰度图片; <0: 按照图片本身
    * @return
    */
   def loadAndShowOrExit(file: File, flags: Int=IMREAD_COLOR): Mat = {
@@ -47,8 +45,8 @@ object OpenCVUtils {
 
   /**
    * 在窗口中显示图像。关闭窗口将退出应用程序。
-   * @param mat
-   * @param title
+   * @param mat 图片
+   * @param title 标题
    */
   def show(mat: Mat, title: String): Unit = {
     val converter = new ToMat()
@@ -56,4 +54,25 @@ object OpenCVUtils {
     canvas.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     canvas.showImage(converter.convert(mat))
   }
+
+  /**
+   * 在窗口中显示图像。关闭窗口将退出应用程序。
+   * @param image 图片
+   * @param title 标题
+   */
+  def show(image: Image, title: String): Unit = {
+    val canvas = new CanvasFrame(title, 1)
+    canvas.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+    canvas.showImage(image)
+  }
+
+  /**
+   * 保存图片到指定文件
+   * @param file 文件
+   * @param image 图片
+   */
+  def save(file: File, image: Mat): Unit = {
+    imwrite(file.getAbsolutePath, image)
+  }
+
 }
