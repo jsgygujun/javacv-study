@@ -30,5 +30,5 @@ object Ex1ReadVideoSequence extends App {
     Thread.sleep(delay)
   }
   // 关闭视频文件
-  grabber.release()
+  grabber.stop()
 }
