@@ -13,7 +13,6 @@ object ExtractFrames {
     val grabber = new FFmpegFrameGrabber("data/bike.avi")
     // 打开视频文件
     grabber.start()
-
     // 创建窗口显示帧
     val canvasFrame = new CanvasFrame("Extract Frame", 1)
     canvasFrame.setCanvasSize(grabber.getImageWidth, grabber.getImageHeight)
